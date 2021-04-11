@@ -1,0 +1,57 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdkVersion config.compileSdk
+    buildToolsVersion config.buildTool
+
+    defaultConfig {
+        applicationId "com.davi.githubapp"
+        minSdkVersion config.minSdk
+        targetSdkVersion config.targetSdk
+        versionCode config.versionCode
+        versionName config.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    lintOptions {
+        abortOnError true
+    }
+}
+
+dependencies {
+    dependencie.cross.libraries.each { lib ->
+        implementation lib
+    }
+    dependencie.app.libraries.each { lib ->
+        implementation lib
+    }
+    dependencie.cross.test.each { lib ->
+        implementation lib
+    }
+    dependencie.app.test.each { lib ->
+        implementation lib
+    }
+    dependencie.cross.androidTest.each { lib ->
+        implementation lib
+    }
+    dependencie.app.androidTest.each { lib ->
+        implementation lib
+    }
+}
