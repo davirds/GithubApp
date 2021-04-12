@@ -1,8 +1,8 @@
-name: Build Develop
+name: Build Master
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ master ]
 
 jobs:
   lint:
@@ -46,7 +46,7 @@ jobs:
         with:
           java-version: 1.8
       - name: Build SDK
-        run: bash ./gradlew :sdk:assemble --stacktrace
+        run: bash ./gradlew :sdk:assembleRelease --stacktrace
   apk:
     name: Generate APK
     needs: sdk
@@ -59,4 +59,4 @@ jobs:
         with:
           java-version: 1.8
       - name: Build APK
-        run: bash ./gradlew :app:assemble --stacktrace
+        run: bash ./gradlew :app:assembleRelease --stacktrace

@@ -1,8 +1,11 @@
-name: Build Develop
+name: Build Integration
 
 on:
   push:
-    branches: [ develop ]
+    branches:
+      - '!master'
+      - '!develop'
+      - '*'
 
 jobs:
   lint:
@@ -17,26 +20,9 @@ jobs:
           java-version: 1.8
       - name: KtLint
         run: bash ./gradlew ktlintCheck
-  test:
-    name: Run Tests
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Setup JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
-      - name: Sdk Unit Tests
-        run: bash ./gradlew :sdk:testDebugUnitTest --stacktrace 
-      - name: App Unit Tests
-        run: bash ./gradlew :app:testDebugUnitTest --stacktrace 
-      - name: App Instrumented Test
-        run: bash ./gradlew :app:assembleDebugAndroidTest --stacktrace
   sdk:
     name: Generate SDK
-    needs: test
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
